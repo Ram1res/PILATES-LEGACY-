@@ -31,6 +31,8 @@
   --lw:clamp(150px,13vw,220px);
   --pad:clamp(24px,9vw,160px);
   --font:"Brother 1816","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --bg-speed:.88;
+  --bg-bleed:14vh;
 }
 *{ margin:0; padding:0; box-sizing:border-box; }
 html{ background:var(--ink); scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
@@ -247,15 +249,16 @@ main{ position:relative; z-index:2; }
 }
 
 /* v3: cada princípio ocupa um plano cromático próprio. */
-#principles{ position:relative; padding:34vh var(--pad) 26vh; }
-.principle{ isolation:isolate; overflow:hidden; }
+#principles{ position:relative; padding:34vh var(--pad) 26vh; background:var(--plano-ochre); }
+.principles-heading{ display:none; }
+.principle{ isolation:isolate; overflow:hidden; background:var(--plano-ochre); }
 .principle .plane{ z-index:-1; }
 .principle > :not(.plane){ position:relative; z-index:1; }
-.principle h3,.principle p{ color:var(--plano-branco); }
+.principle h3,.principle p{ color:var(--plano-tinta); }
 .principle.breath .plane{ background:var(--plano-ochre); }
 .principle.breath h3,.principle.breath p{ color:var(--plano-tinta); }
-.principle.breath .rule{ background:rgba(255,255,255,.78); }
-.principle.consciousness .plane{ background:var(--plano-tinta); }
+.principle.breath .rule{ background:rgba(0,0,0,.35); }
+.principle.consciousness .plane{ background:var(--plano-ochre); }
 .principle.concentration .plane{ background:var(--plano-ochre-fundo); }
 
 /* v3: pausa para leitura sobre o vídeo contínuo. */
@@ -332,9 +335,9 @@ body[data-surface="deep-ochre"] :focus-visible{ outline-color:var(--plano-branco
   background:linear-gradient(180deg,rgba(255,255,255,.2) 0 1px,transparent 1px calc(100% - 1px),rgba(255,255,255,.2) calc(100% - 1px));
 }
 .plane.motion-plane{ z-index:0; opacity:1; border:1px solid rgba(255,255,255,.2); background-image:linear-gradient(135deg,rgba(192,120,18,.07),transparent 64%); }
-.principle{ background:var(--plano-tinta); }
+.principle{ background:var(--plano-ochre); }
 .principle.breath{ background:var(--plano-ochre); }
-.principle.concentration{ background:var(--plano-ochre-fundo); }
+.principle.concentration{ background:var(--plano-ochre); }
 .principle .plane{ z-index:0; }
 .principle.breath .edge-plane{ border-color:rgba(0,0,0,.2); background:linear-gradient(180deg,rgba(0,0,0,.2) 0 1px,transparent 1px calc(100% - 1px),rgba(0,0,0,.2) calc(100% - 1px)); }
 .principle.consciousness .edge-plane,.principle.concentration .edge-plane{ background:linear-gradient(180deg,rgba(255,255,255,.2) 0 1px,transparent 1px calc(100% - 1px),rgba(255,255,255,.2) calc(100% - 1px)); }
@@ -343,7 +346,7 @@ body[data-surface="deep-ochre"] :focus-visible{ outline-color:var(--plano-branco
 #closing .edge-plane{ opacity:1; }
 #closing .motion-plane{ opacity:1; }
 #pause .motion-plane,#studio .motion-plane,#closing .motion-plane{ z-index:0; }
-.consciousness h3,.concentration h3,#closing .closing-title{ color:#e6a550; }
+.consciousness h3,.concentration h3,#closing .closing-title{ color:#000; }
 #studio h2,#studio .row h3{ color:#8c570c; }
 #studio .row p{ color:var(--plano-tinta); }
 .principle p,#pauseText,#pauseSmall,#closing .contact,#closing .foot{ color:inherit; opacity:1; }
@@ -397,13 +400,13 @@ body[data-surface="video"] .hero-video{ opacity:1; }
 #manifesto .manifesto-ornament{ z-index:0; color:var(--ochre); opacity:.24; }
 #manifesto .manifesto-text{ color:var(--plano-branco); }
 
-#principles{ background:var(--ink); }
+#principles{ background:var(--plano-ochre); }
 .principle,.principle.breath,.principle.consciousness,.principle.concentration{
-  isolation:isolate; background:var(--ink); color:var(--plano-branco);
+  isolation:isolate; background:var(--plano-ochre); color:var(--plano-tinta);
 }
 .principle > :not(.plane){ position:relative; z-index:2; }
 .principle h3,.principle.breath h3,.principle p,.principle.breath p{
-  color:var(--plano-branco);
+  color:var(--plano-tinta);
 }
 .principle .motion-plane{
   top:5%; right:auto; bottom:auto; left:-12%; width:53%; height:38%;
@@ -446,6 +449,31 @@ body[data-surface="video"] .hero-video{ opacity:1; }
 #studio .row h3,#studio .row:hover h3{ color:var(--plano-branco); }
 .hero-signature::before{ display:none; }
 .cue::after{ background:var(--plano-branco); }
+#hero .hero-signature{ pointer-events:none; }
+#hero .hero-cta{
+  display:inline-block; pointer-events:auto; margin-top:clamp(26px,4vh,42px);
+  padding:12px 18px; border:1px solid var(--ochre); background:var(--ochre); color:#fff;
+  font-size:.62rem; line-height:1.4; letter-spacing:.18em; text-align:center;
+  text-transform:uppercase; transition:none;
+}
+#hero .hero-cta:hover{ background:var(--ochre); border-color:var(--ochre); color:#fff; }
+#principles{ background:var(--plano-ochre); }
+#principles .principles-heading{ display:none; }
+#principles .principle,
+#principles .principle.breath,
+#principles .principle.consciousness,
+#principles .principle.concentration{ background:var(--plano-ochre); backdrop-filter:none; }
+.principle h3,.principle.breath h3{ font-weight:700; }
+#principles .principle .rule{ display:none; }
+#principles .principle h3,
+#principles .principle.breath h3{
+  font-size:clamp(8px,.65vw,10px);
+  line-height:1.3;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+}
+#manifesto,#principles,.principle{ overflow:visible; }
+#manifesto .stick{ overflow:visible; }
 #closing{ position:relative; z-index:2; background:var(--ink); color:var(--plano-branco); }
 body[data-surface="video"] .nav{ color:var(--plano-branco); }
 body[data-surface="video"] .nav a:hover{ color:var(--plano-branco); }
@@ -674,6 +702,9 @@ color:#fff;
   transition:transform .9s cubic-bezier(.16,1,.3,1);
 }
 #manifesto .stick.is-revealed .mline{ transform:scaleX(1); }
+#manifesto{ height:190svh; }
+#manifesto .statement .w{ animation:none !important; transition:opacity .12s linear; }
+@media(max-width:760px){ #manifesto{ height:130svh; } }
 #manifesto .manifesto-ornament path{
   transition:stroke-dashoffset 1.8s cubic-bezier(.16,1,.3,1) calc(var(--path-index) * 24ms);
 }
@@ -708,6 +739,12 @@ body[data-surface="hero"] .nav{ color:#fff; }
   #principles .principles-heading{ margin-bottom:0; }
   #principles .principle{ gap:14px; }
   #principles .principle p{ max-width:38ch; }
+  #principles .principle .rule{ display:none; }
+  #principles .principle,
+  #principles .principle.alt{ align-items:flex-start; text-align:left; }
+  #principles .principle:nth-of-type(even),
+  #principles .principle:nth-of-type(even) h3,
+  #principles .principle:nth-of-type(even) p{ align-items:flex-end; text-align:right; }
   #pause{ height:88vh; }
   #studio{ padding-block:10vh; }
   #closing{ min-height:92vh; }
@@ -762,11 +799,15 @@ body[data-surface="hero"] .nav{ color:#fff; }
     pointer-events:none;
   }
   #studio .studio-visual img{
+    position:absolute;
+    top:calc(var(--bg-bleed) * -1);
     display:block;
     width:100%;
-    height:100%;
+    height:calc(100% + var(--bg-bleed) * 2);
     object-fit:cover;
     object-position:center 54%;
+    transform:translate3d(0,var(--bg-shift,0px),0);
+    will-change:transform;
   }
   #studio .studio-visual::after{
     content:"";
@@ -922,6 +963,10 @@ body[data-surface="hero"] .nav{ color:#fff; }
     #studio .row:nth-child(4){ right:6%; }
   }
   @media(max-width:760px){
+    :root{
+      --bg-speed:.93;
+      --bg-bleed:8vh;
+    }
     #studio{
       min-height:0;
       padding:24px clamp(22px,7vw,36px) 52px;
@@ -971,6 +1016,56 @@ body[data-surface="hero"] .nav{ color:#fff; }
   @media(max-width:380px){
     #studio .rows{ grid-template-columns:1fr; gap:20px; }
   }
+  @media(prefers-reduced-motion:reduce){
+    #studio .studio-visual img{ transform:none; }
+    .text-parallax{ translate:none !important; }
+  }
+  .text-parallax{ translate:0 var(--text-shift,0px); }
+  #principles{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:4vw;
+    padding:82px clamp(28px,9vw,135px) 42px !important;
+    min-height:300px;
+    background:#fff !important;
+    color:#292522 !important;
+    border-bottom:1px solid #e7e1dc;
+  }
+  #principles .principles-heading{ display:none !important; }
+  #principles .principle,
+  #principles .principle.breath,
+  #principles .principle.consciousness,
+  #principles .principle.concentration{
+    display:flex;
+    position:relative;
+    flex-direction:column;
+    gap:0;
+    min-height:0;
+    padding-top:22px;
+    overflow:visible !important;
+    background:#fff !important;
+    color:#292522 !important;
+  }
+  #principles .principle .plane{ display:none !important; }
+  #principles .principle .rule{ background:rgba(192,120,18,.55) !important; }
+  #principles .principle h3,
+  #principles .principle.breath h3{
+    color:#c07812 !important;
+    font-size:clamp(30px,3vw,46px) !important;
+    line-height:1.1;
+    letter-spacing:-.02em;
+    text-transform:none;
+    font-weight:400 !important;
+  }
+  #principles .principle p{ color:#37312d !important; font-size:clamp(15px,1.2vw,17px); line-height:1.6; }
+  #manifesto{ height:220svh !important; }
+  @media(max-width:760px){
+    #principles{ grid-template-columns:1fr; padding-top:56px !important; }
+    #manifesto{ height:200svh !important; }
+  }
+  #manifesto,#principles,.principle{ overflow:visible !important; }
+  #manifesto .stick{ overflow:visible !important; }
+  #manifesto .text-parallax,#principles .text-parallax{ translate:none !important; }
   </style>
 </head>
 <body>
@@ -1046,6 +1141,7 @@ body[data-surface="hero"] .nav{ color:#fff; }
     </g>
   
       </svg>
+      <a class="hero-cta" href="#contato">agendar uma aula experimental</a>
       <div class="tagline" id="tagline">leve ∙ vida</div>
       </div>
       <div class="cue" id="cue"></div>
@@ -1077,7 +1173,6 @@ body[data-surface="hero"] .nav{ color:#fff; }
   </section>
 
   <section id="principles">
-    <h2 class="principles-heading sr-only">Princípios Legacy</h2>
     <article class="principle breath">
       <div class="plane motion-plane" data-rhythm="LENTO" data-speed="0.25" data-lag="2.5" aria-hidden="true"></div>
       <div class="plane edge-plane" data-rhythm="RAPIDO" data-speed="1.15" data-lag="9" aria-hidden="true"></div>
@@ -1118,7 +1213,7 @@ body[data-surface="hero"] .nav{ color:#fff; }
     <div class="studio-visual" aria-hidden="true">
       <img src="studio-pilates-2x.png" alt="">
     </div>
-    <h2 class="rv">Um espaço onde cada detalhe serve ao movimento.</h2>
+    <h2 class="rv">Um espaço onde cada detalhe serve <strong>ao movimento</strong>.</h2>
     <div class="rows">
       <div class="row rv"><h3>Aulas individuais</h3><p>Atenção integral do instrutor, com uma progressão desenhada para o seu corpo e o seu tempo.</p></div>
       <div class="row rv"><h3>Duplas e pequenos grupos</h3><p>No máximo três pessoas por sala, para que nenhum detalhe se perca pelo caminho.</p></div>
@@ -1241,15 +1336,18 @@ body[data-surface="hero"] .nav{ color:#fff; }
       if (/^\s+$/.test(part)) {
         fragment.append(document.createTextNode(part));
       } else {
-        const word = document.createElement('span');
-        word.className = 'w';
-        word.textContent = part;
-        fragment.append(word);
+        for (const character of Array.from(part)) {
+          const letter = document.createElement('span');
+          letter.className = 'w';
+          letter.textContent = character;
+          fragment.append(letter);
+        }
       }
     }
     textNode.replaceWith(fragment);
   }
   $$('.w', statement).forEach((word, index) => word.style.setProperty('--word-index', index));
+  const manifestoWords = $$('.w', statement);
   const manifestoStick = statement.closest('.stick');
   function revealManifesto() {
     statement.classList.add('is-revealed');
@@ -1285,6 +1383,13 @@ body[data-surface="hero"] .nav{ color:#fff; }
     root, rule: $('.rule', root), heading: $('h3', root), text: $('p', root)
   }));
   const reveals = $$('.rv');
+  const textSelector = 'h1:not(.sr-only),h2:not(.sr-only),h3,h4,h5,h6,p,small,a,button,li,.foot,.hero-signature';
+  const textLayers = $$(textSelector).filter(element =>
+    !element.parentElement?.closest(textSelector) &&
+    !element.closest('.nav,.whatsapp,.skip-link,#manifesto,#principles')
+  );
+  for (const element of textLayers) element.classList.add('text-parallax');
+  const textShifts = new WeakMap();
 
   /* v3: os planos guardam posição própria e cada resize refaz as métricas. */
   const mobile = matchMedia('(max-width: 760px)');
@@ -1348,6 +1453,7 @@ body[data-surface="hero"] .nav{ color:#fff; }
     const center = y + vh / 2;
     if (center < metrics.manifesto.top) return 'hero';
     if (center < metrics.manifesto.top + metrics.manifesto.height) return 'ink';
+    if (center >= metrics.principles.top && center < metrics.studio.top) return 'video';
     if (center >= metrics.studio.top && center < metrics.closing.top) return 'video';
     return center >= metrics.closing.top ? 'closing' : 'light';
   }
@@ -1362,7 +1468,8 @@ body[data-surface="hero"] .nav{ color:#fff; }
     sy = reduce ? target : sy + (target - sy) * (1 - Math.exp(-dt * 6.5));
     if (Math.abs(target - sy) < .05) sy = target;
 
-    setFirstScreenVideo(target < metrics.manifesto.top);
+    /* A fonte da abertura continua sob o manifesto e reaparece nos princípios. */
+    setFirstScreenVideo(target < metrics.pause.top);
     setPlayback(el.heroVideo, !reduce && target < metrics.closing.top);
 
     /* v3: os planos têm inércia própria e deslocamento limitado a 12vh. */
@@ -1382,8 +1489,39 @@ body[data-surface="hero"] .nav{ color:#fff; }
       plane.element.style.transform = `translate3d(0,${plane.value.toFixed(2)}vh,0)`;
     }
 
+    const studioRect = sec.studio.getBoundingClientRect();
+    if (!reduce && studioRect.bottom > 0 && studioRect.top < vh) {
+      const studioStyle = getComputedStyle(sec.studio);
+      const bgSpeed = parseFloat(studioStyle.getPropertyValue('--bg-speed'));
+      const bleedPx = parseFloat(studioStyle.getPropertyValue('--bg-bleed')) * vh / 100;
+      const d = (studioRect.top + studioRect.height / 2) - vh / 2;
+      const shift = clamp(-(1 - bgSpeed) * d, -bleedPx, bleedPx);
+      sec.studio.style.setProperty('--bg-shift', shift + 'px');
+    }
+
+    if (!reduce) {
+      const bgSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bg-speed'));
+      for (const element of textLayers) {
+        const rect = element.getBoundingClientRect();
+        if (rect.bottom <= 0 || rect.top >= vh) continue;
+        const previousShift = textShifts.get(element) || 0;
+        const d = (rect.top - previousShift + rect.height / 2) - vh / 2;
+        const textStrength = element.matches('#studio h2') ? 1.5 : 1;
+        const shift = -(1 - bgSpeed) * d * textStrength;
+        element.style.setProperty('--text-shift', shift + 'px');
+        textShifts.set(element, shift);
+      }
+    }
+
     /* O vídeo original acompanha o conteúdo até o fundo preto do encerramento. */
     const pause = metrics.pause;
+    const manifestoTravel = Math.max(1, metrics.manifesto.height - vh);
+    const manifestoProgress = clamp((sy - metrics.manifesto.top) / manifestoTravel);
+    const revealCursor = manifestoProgress * (manifestoWords.length + 2) - 1;
+    manifestoWords.forEach((word, index) => {
+      const wordProgress = reduce ? 1 : ease(clamp(revealCursor - index));
+      word.style.opacity = (.22 + .78 * wordProgress).toFixed(3);
+    });
     const pauseProgress = clamp((sy - pause.top) / Math.max(1, pause.height - vh));
     const pauseOpacity = reduce ? 1 : .9 + .1 * clamp(Math.sin(pauseProgress * Math.PI) * 1.9);
     el.pauseText.style.opacity = pauseOpacity.toFixed(3);
